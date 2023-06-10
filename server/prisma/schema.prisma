@@ -1,0 +1,157 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum Role {
+  ADMIN
+  MEMBER
+}
+
+model User {
+  id            String   @id @default(uuid())
+  name          String
+  email         String   @unique
+  password_hash String
+  role          Role     @default(MEMBER)
+  updated_at    DateTime @updatedAt
+  created_at    DateTime @default(now())
+
+  @@map("users")
+}
+
+model Service {
+  id          String   @id @default(uuid())
+  description String
+  value       Int
+  client_id   String
+  report_id   String?
+  created_at  DateTime @default(now())
+
+  client Client? @relation(fields: [client_id], references: [id])
+  report Report? @relation(fields: [report_id], references: [id])
+
+  @@map("services")
+}
+
+model Extra {
+  id          String   @id @default(uuid())
+  description String
+  value       Int
+  third_id    String?
+  client_id   String?
+  created_at  DateTime @default(now())
+
+  client Client? @relation(fields: [client_id], references: [id])
+  third  Third?  @relation(fields: [third_id], references: [id])
+
+  @@map("extras")
+}
+
+model Receipt {
+  id          String   @id @default(uuid())
+  description String
+  value       Int
+  client_id   String?
+  report_id   String?
+  created_at  DateTime @default(now())
+
+  client Client? @relation(fields: [client_id], references: [id])
+  report Report? @relation(fields: [report_id], references: [id])
+
+  @@map("receipts")
+}
+
+model Client {
+  id         String   @id @default(uuid())
+  name       String
+  contact    String
+  phone      String
+  balance    Int?
+  created_at DateTime @default(now())
+
+  services Service[]
+  receipts Receipt[]
+  extras   Extra[]
+  reports  Report[]
+
+  @@map("clients")
+}
+
+model FixedCost {
+  id          String   @id @default(uuid())
+  description String
+  value       Int
+  created_at  DateTime @default(now())
+
+  @@map("fixed_costs")
+}
+
+model Expenses {
+  id          String   @id @default(uuid())
+  description String
+  value       Int
+  created_at  DateTime @default(now())
+
+  @@map("expenses")
+}
+
+model FinancialIncome {
+  id          String   @id @default(uuid())
+  description String
+  value       Int
+  created_at  DateTime @default(now())
+
+  @@map("financial_incomes")
+}
+
+model EquityInvestment {
+  id          String   @id @default(uuid())
+  description String
+  value       Int
+  created_at  DateTime @default(now())
+
+  @@map("equity_investments")
+}
+
+model Third {
+  id         String   @id @default(uuid())
+  name       String
+  service    String
+  value      Int
+  payment    Int
+  balance    Int
+  created_at DateTime @default(now())
+
+  extras Extra[]
+
+  @@map("thirds")
+}
+
+model Report {
+  id         String   @id @default(uuid())
+  client_id  String?
+  annotation String
+  created_at DateTime @default(now())
+
+  client   Client?   @relation(fields: [client_id], references: [id])
+  services Service[]
+  repices  Receipt[]
+
+  @@map("reports")
+}
+
+model Estimate {
+  id          String   @id @default(uuid())
+  city        String
+  service     String
+  value       Int
+  observation String
+  created_at  DateTime @default(now())
+
+  @@map("estimates")
+}
