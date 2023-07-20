@@ -1,82 +1,49 @@
 'use client'
-'clientside'
 
-import { Button } from '@/components/Button'
-import { zodResolver } from '@hookform/resolvers/zod'
-import { FormProvider, useForm } from 'react-hook-form'
-import { z } from 'zod'
-
-import { Input } from '@/components/Input'
-import { AuthContext } from '@/contexts/AuthContext'
-import Link from 'next/link'
-import { useContext } from 'react'
-
-import Login from '../assets/icons/login.svg'
-
-const loginFormSchema = z.object({
-  email: z
-    .string({ required_error: 'E-mail obrigatório' })
-    .email({ message: 'Insira um e-mail válido' }),
-  password: z
-    .string({ required_error: 'Senha obrigatória' })
-    .min(6, { message: 'A senha deve conter no mínimo 6 caracteres' }),
-})
-
-type LoginFormData = z.infer<typeof loginFormSchema>
+import { api } from "@/services/api"
+import Link from "next/link"
+import { useEffect, useState } from "react"
 
 export default function Home() {
-  const methods = useForm()
-  const {
-    register,
-    handleSubmit,
-    formState: { errors },
-  } = useForm<LoginFormData>({
-    resolver: zodResolver(loginFormSchema),
-  })
-
-  const { signIn } = useContext(AuthContext)
-
-  async function handleLogin(data: LoginFormData) {
-    await signIn(data)
-  }
-
+  const [listClients, setListClients] = useState()
+  useEffect(() => {
+    api.get('/clients').then((response) => setListClients(response.data))
+  }, [])
   return (
-    <main className="flex items-center justify-center h-screen">
-      <FormProvider {...methods}>
-        <form
-          className="rounded-xl bg-white p-12 flex w-full flex-col max-w-[364px] text-center"
-          onSubmit={handleSubmit(handleLogin)}
-        >
-          <div className="flex flex-col gap-4 mb-6">
-            <h1 className="font-semibold text-3xl text-neutral-700">Entrar</h1>
-            <p className="text-sm">Bem-vindo de volta, você fez falta</p>
+    <main>
+      <nav className="flex items-start">
+        {/* <Sidebar /> */}
+        <section className="w-full">
+          <div className="flex items-center justify-between">
+
           </div>
-          <div className="flex flex-col gap-3 mb-2 w-full">
-            <Input
-              type="email"
-              placeholder="E-email"
-              error={errors.email}
-              {...register('email')}
-            />
-            <Input
-              type="password"
-              placeholder="Senha"
-              error={errors.password}
-              {...register('password')}
-            />
-          </div>
-          <Link
-            href="/forgot-password"
-            className="mb-6 text-green-500 text-sm text-right hover:underline duration-150"
-          >
-            Esqueceu sua senha?
-          </Link>
-          <Button>
-            <Login />
-            Entrar
-          </Button>
-        </form>
-      </FormProvider>
+          <table className="border-separate border-spacing-y-1 mt-16 w-full max-w-3xl m-auto table-auto">
+            <thead className="bg-neutral-200 text-neutral-600">
+              <tr>
+                <th className="p-3 text-left rounded-tl-xl rounded-bl-xl">Nome</th>
+                <th className="p-3 text-left">Contato</th>
+                <th className="p-3 text-left">Telefone</th>
+                <th className="p-3 text-left">Balanço</th>
+                <th className="p-3 text-left rounded-tr-xl rounded-br-xl w-8"></th>
+              </tr>
+            </thead>
+            <tbody className="bg-white w-full h-auto">
+              {listClients &&
+                listClients?.clients.map((client: any) => {
+                  return (
+                    <tr key={client.id}  className="w-full">
+                      <td className="p-3 text-left rounded-tl-xl rounded-bl-xl">{client.name}</td>
+                      <td className="p-3 text-left">{client.contact}</td>
+                      <td className="p-3 text-left">{client.phone}</td>
+                      <td className="p-3 text-left">{client.balance}</td>
+                      <td className="p-3 text-left rounded-tr-xl rounded-br-xl w-8"><Link href={`clients/${client.id}`} key={client.id}> {'>'}</Link></td>
+                    </tr>
+                  )
+                })}
+            </tbody>
+          </table>
+        </section>
+      </nav>
     </main>
   )
 }

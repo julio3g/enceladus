@@ -1,15 +1,18 @@
 /** @type {import('tailwindcss').Config} */
 module.exports = {
   content: [
-    './src/pages/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/components/**/*.{js,ts,jsx,tsx,mdx}',
-    './src/app/**/*.{js,ts,jsx,tsx,mdx}',
+    './src/pages/**/*.{ts,tsx,mdx}',
+    './src/components/**/*.{ts,tsx,mdx}',
+    './src/app/**/*.{ts,tsx,mdx}',
   ],
   theme: {
     extend: {
       colors: {
         white: '#FAFAFA',
         body: '#EEF6F1',
+      },
+      boxShadow: {
+        '3xl': '0px 0px 0px 3px #86EFAC',
       },
       backgroundImage: {
         'gradient-radial': 'radial-gradient(var(--tw-gradient-stops))',
