@@ -13,7 +13,7 @@ Enceladus
 - [x] Deve ser possível cadastrar um novo cliente;
 - [x] Deve ser possível cadastrar um novo servico;
 - [x] Deve ser possível cadastrar um novo extra;
-- [ ] Deve ser possível visualizar um extrato do cliente;
+- [x] Deve ser possível visualizar um extrato do cliente;
 
 ## RNs (Regras de negocio)
 
