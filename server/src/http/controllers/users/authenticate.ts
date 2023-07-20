@@ -1,3 +1,4 @@
+import { InvalidCredentialsError } from '@/useCases/errors/invalidCredentialsError'
 import { makeAuthenticateUseCase } from '@/useCases/factories/makeAuthenticateUseCase'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
@@ -36,13 +37,13 @@ export class AuthenticateController {
           path: '/', // todas as rotas poderão usar
           secure: true, // sera encriptado o refreshToken e o frontend veja criptografado
           sameSite: true, // mesmo site que vai acessar ele
-          httpOnly: true, // o cookie so poderá ser acessado pelo backend
+          httpOnly: false, // o cookie so poderá ser acessado pelo backend
         })
         .status(200)
         .send({ token })
     } catch (err) {
-      if (err) {
-        return replay.status(400).send({ code: 'Invalid credentials.' })
+      if (err instanceof InvalidCredentialsError) {
+        return replay.status(400).send({ message: err.message })
       }
       throw err
     }

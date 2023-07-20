@@ -1,6 +1,7 @@
 import { FastifyInstance } from 'fastify'
 import { CreateClientController } from './create'
 import { ListClientsController } from './fetch'
+import { GetClientController } from './get'
 
 export async function clientsRoutes(app: FastifyInstance) {
   app.post(
@@ -13,4 +14,5 @@ export async function clientsRoutes(app: FastifyInstance) {
     // { onRequest: [verifyJWT] },
     new ListClientsController().handle,
   )
+  app.get('/clients/:clientId', new GetClientController().handle)
 }

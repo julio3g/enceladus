@@ -27,7 +27,7 @@ export class RefreshTokenController {
           path: '/', // todas as rotas poderão usar
           secure: true, // sera encriptado o refreshToken e o frontend veja criptografado
           sameSite: true, // mesmo site que vai acessar ele
-          httpOnly: true, // o cookie so poderá ser acessado pelo backend
+          httpOnly: false, // o cookie so poderá ser acessado pelo backend
         })
         .status(200)
         .send({ token })

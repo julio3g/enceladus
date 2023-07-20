@@ -11,8 +11,8 @@ export class ListExtrasByClientController {
     const { clientId } = paramsSchema.parse(request.params)
 
     const createExtraUseCase = makeListExtrasByClientUseCase()
-    await createExtraUseCase.execute({ clientId })
+    const all = await createExtraUseCase.execute({ clientId })
 
-    return replay.status(200).send()
+    return replay.status(200).send(all)
   }
 }

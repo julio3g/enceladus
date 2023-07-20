@@ -6,6 +6,6 @@ const createExtra = new CreateExtraController()
 const listExtrasByClient = new ListExtrasByClientController()
 
 export async function extrasRoutes(app: FastifyInstance) {
-  app.post('/', createExtra.handle)
-  app.get('/:clientId', listExtrasByClient.handle)
+  app.post('/extras/', createExtra.handle)
+  app.get('/extras/:clientId', listExtrasByClient.handle)
 }
