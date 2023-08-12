@@ -19,7 +19,7 @@ export class SetBalanceByClientUseCase {
     private clientsRepository: ClientsRepository,
     private servicesRepository: ServicesRepository,
     private extrasRepository: ExtrasRepository,
-    private receiptsRepository: ReceiptsRepository,
+    private receiptsRepository: ReceiptsRepository
   ) {}
 
   async execute({

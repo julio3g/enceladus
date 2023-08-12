@@ -23,9 +23,10 @@ export class PrismaClientsRepository implements ClientsRepository {
     return client
   }
 
-  async saveBalance(client: Client): Promise<Client | null> {
-    const saveClient = await prisma.client.findFirst({
-      where: { id: client.id },
+  async saveBalance(data: Client): Promise<Client | null> {
+    const saveClient = await prisma.client.update({
+      where: { id: data.id },
+      data,
     })
     return saveClient
   }
