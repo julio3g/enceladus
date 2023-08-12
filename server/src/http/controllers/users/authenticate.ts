@@ -18,7 +18,7 @@ export class AuthenticateController {
 
       const token = await replay.jwtSign(
         { role: user.role },
-        { sign: { sub: user.id } },
+        { sign: { sub: user.id } }
       ) // não colocar dados sensíveis no payload => {}
       const refreshToken = await replay.jwtSign(
         {
@@ -29,7 +29,7 @@ export class AuthenticateController {
             sub: user.id,
             expiresIn: '7d', // expire in 7 days
           },
-        },
+        }
       )
 
       return replay

@@ -16,7 +16,7 @@ app.register(fastifyJwt, {
     signed: false, // não é um cookie assinado
   },
   sign: {
-    expiresIn: '1m', // 10 minutes
+    expiresIn: '10m', // 10 minutes
   },
 })
 

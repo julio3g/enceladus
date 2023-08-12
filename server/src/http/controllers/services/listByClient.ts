@@ -2,7 +2,7 @@ import { makeListServicesByClientUseCase } from '@/useCases/factories/makeListSe
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
-export class ListExtrasByClientController {
+export class ListServicesByClientController {
   async handle(request: FastifyRequest, replay: FastifyReply) {
     const paramsSchema = z.object({
       clientId: z.string().uuid(),
