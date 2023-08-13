@@ -15,7 +15,7 @@ export function makeSetBalanceByClientUseCase() {
     prismaClientsRepository,
     servicesRepository,
     extrasRepository,
-    receiptsRepository
+    receiptsRepository,
   )
 
   return setBalanceByClient
