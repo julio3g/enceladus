@@ -34,6 +34,16 @@ export class PrismaServicesRepository implements ServicesRepository {
 
   async create(data: Prisma.ServiceUncheckedCreateInput): Promise<Service> {
     const service = await prisma.service.create({ data })
+
+    await prisma.client.update({
+      where: { id: service.client_id },
+      data: {
+        balance: {
+          decrement: service.value,
+        },
+      },
+    })
+
     return service
   }
 }

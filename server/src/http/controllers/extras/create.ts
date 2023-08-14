@@ -6,12 +6,14 @@ export class CreateExtraController {
   async handle(request: FastifyRequest, replay: FastifyReply) {
     const createExtraBodySchema = z.object({
       description: z.string(),
-      value: z.number(),
+      value: z.number().refine((value) => {
+        return Number(value.toFixed(2)) === value
+      }),
       client_id: z.string().uuid(),
     })
 
     const { description, value, client_id } = createExtraBodySchema.parse(
-      request.body,
+      request.body
     )
 
     const createExtraUseCase = makeCreateExtraUseCase()

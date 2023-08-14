@@ -27,6 +27,18 @@ export class PrismaReceiptsRepository implements ReceiptsRepository {
 
   async create(data: Prisma.ReceiptCreateInput): Promise<Receipt> {
     const receipt = await prisma.receipt.create({ data })
+
+    if (receipt.client_id) {
+      await prisma.client.update({
+        where: { id: receipt.client_id },
+        data: {
+          balance: {
+            increment: receipt.value,
+          },
+        },
+      })
+    }
+
     return receipt
   }
 }

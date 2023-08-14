@@ -25,8 +25,20 @@ export class PrismaExtrasRepository implements ExtrasRepository {
     return listExtras
   }
 
-  async create(data: Prisma.ExtraCreateInput): Promise<Extra> {
+  async create(data: Prisma.ExtraUncheckedCreateInput): Promise<Extra> {
     const extra = await prisma.extra.create({ data })
+
+    if (extra.client_id) {
+      await prisma.client.update({
+        where: { id: extra.client_id },
+        data: {
+          balance: {
+            decrement: extra.value,
+          },
+        },
+      })
+    }
+
     return extra
   }
 }

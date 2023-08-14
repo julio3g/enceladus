@@ -5,5 +5,5 @@ export interface ExtrasRepository {
   findByDescription(description: string): Promise<Extra | null>
   findMany(): Promise<Extra[]>
   findManyByClientId(clientId: string): Promise<Extra[]>
-  create(data: Prisma.ServiceUncheckedCreateInput): Promise<Extra>
+  create(data: Prisma.ExtraUncheckedCreateInput): Promise<Extra>
 }

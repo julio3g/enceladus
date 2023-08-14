@@ -27,7 +27,7 @@ model User {
 model Service {
   id          String   @id @default(uuid())
   description String
-  value       Int
+  value       Decimal
   client_id   String
   report_id   String?
   created_at  DateTime @default(now())
@@ -41,7 +41,7 @@ model Service {
 model Extra {
   id          String   @id @default(uuid())
   description String
-  value       Int
+  value       Decimal
   third_id    String?
   client_id   String?
   created_at  DateTime @default(now())
@@ -55,7 +55,7 @@ model Extra {
 model Receipt {
   id          String   @id @default(uuid())
   description String
-  value       Int
+  value       Decimal
   client_id   String?
   report_id   String?
   created_at  DateTime @default(now())
@@ -71,7 +71,7 @@ model Client {
   name       String
   contact    String
   phone      String
-  balance    Int?     @default(0)
+  balance    Decimal  @default(0)
   created_at DateTime @default(now())
 
   services Service[]
@@ -85,7 +85,7 @@ model Client {
 model FixedCost {
   id          String   @id @default(uuid())
   description String
-  value       Int
+  value       Decimal
   created_at  DateTime @default(now())
 
   @@map("fixed_costs")
@@ -94,7 +94,7 @@ model FixedCost {
 model Expenses {
   id          String   @id @default(uuid())
   description String
-  value       Int
+  value       Decimal
   created_at  DateTime @default(now())
 
   @@map("expenses")
@@ -103,7 +103,7 @@ model Expenses {
 model FinancialIncome {
   id          String   @id @default(uuid())
   description String
-  value       Int
+  value       Decimal
   created_at  DateTime @default(now())
 
   @@map("financial_incomes")
@@ -112,7 +112,7 @@ model FinancialIncome {
 model EquityInvestment {
   id          String   @id @default(uuid())
   description String
-  value       Int
+  value       Decimal
   created_at  DateTime @default(now())
 
   @@map("equity_investments")
@@ -122,9 +122,9 @@ model Third {
   id         String   @id @default(uuid())
   name       String
   service    String
-  value      Int
-  payment    Int
-  balance    Int
+  value      Decimal
+  payment    Decimal
+  balance    Decimal
   created_at DateTime @default(now())
 
   extras Extra[]
@@ -149,7 +149,7 @@ model Estimate {
   id          String   @id @default(uuid())
   city        String
   service     String
-  value       Int
+  value       Decimal
   observation String
   created_at  DateTime @default(now())
 
