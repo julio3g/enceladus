@@ -27,11 +27,16 @@ export class InMemoryRecipientsRepository implements ReceiptsRepository {
     return receipts
   }
 
+  async delete(data: Receipt): Promise<void> {
+    const index = this.items.findIndex((item) => item.id === data.id)
+    if (index !== -1) this.items.splice(index, 1)
+  }
+
   async create(data: Prisma.ReceiptUncheckedCreateInput): Promise<Receipt> {
     const service = {
       id: data.id ?? randomUUID(),
       description: data.description,
-      value: data.value,
+      value: new Prisma.Decimal(data.value.toString()),
       client_id: data.client_id ?? null,
       report_id: data.report_id ?? null,
       created_at: new Date(),

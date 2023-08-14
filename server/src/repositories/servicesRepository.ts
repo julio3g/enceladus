@@ -7,4 +7,5 @@ export interface ServicesRepository {
   findManyByClientId(clientId: string): Promise<Service[]>
   findManyByReportId(reportId: string): Promise<Service[]>
   create(data: Prisma.ServiceUncheckedCreateInput): Promise<Service>
+  delete(data: Service): Promise<void>
 }

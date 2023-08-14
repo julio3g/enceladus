@@ -25,6 +25,10 @@ export class PrismaReceiptsRepository implements ReceiptsRepository {
     return receipts
   }
 
+  async delete(data: Receipt): Promise<void> {
+    await prisma.receipt.delete({ where: { id: data.id } })
+  }
+
   async create(data: Prisma.ReceiptCreateInput): Promise<Receipt> {
     const receipt = await prisma.receipt.create({ data })
 

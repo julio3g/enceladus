@@ -27,11 +27,16 @@ export class InMemoryExtrasRepository implements ExtrasRepository {
     return extras
   }
 
+  async delete(data: Extra): Promise<void> {
+    const index = this.items.findIndex((item) => item.id === data.id)
+    if (index !== -1) this.items.splice(index, 1)
+  }
+
   async create(data: Prisma.ExtraUncheckedCreateInput): Promise<Extra> {
     const extra = {
       id: data.id ?? randomUUID(),
       description: data.description,
-      value: data.value,
+      value: new Prisma.Decimal(data.value.toString()),
       third_id: data.third_id ?? null,
       client_id: data.client_id ?? null,
       created_at: new Date(),

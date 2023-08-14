@@ -36,7 +36,7 @@ export class InMemoryServicesRepository implements ServicesRepository {
     const service = {
       id: randomUUID(),
       description: data.description,
-      value: data.value,
+      value: new Prisma.Decimal(data.value.toString()),
       client_id: data.client_id,
       report_id: data.report_id ?? null,
       created_at: new Date(),

@@ -5,5 +5,6 @@ export interface ReceiptsRepository {
   findByDescription(description: string): Promise<Receipt | null>
   findMany(): Promise<Receipt[]>
   findManyByClientId(clientId: string): Promise<Receipt[]>
-  create(data: Prisma.ReceiptCreateInput): Promise<Receipt>
+  create(data: Prisma.ReceiptUncheckedCreateInput): Promise<Receipt>
+  delete(data: Receipt): Promise<void>
 }

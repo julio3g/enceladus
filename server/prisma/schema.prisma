@@ -67,12 +67,14 @@ model Receipt {
 }
 
 model Client {
-  id         String   @id @default(uuid())
-  name       String
-  contact    String
-  phone      String
-  balance    Decimal  @default(0)
-  created_at DateTime @default(now())
+  id           String   @id @default(uuid())
+  name         String
+  contact      String
+  phone        String
+  description  String
+  registration Int
+  balance      Decimal  @default(0)
+  created_at   DateTime @default(now())
 
   services Service[]
   receipts Receipt[]

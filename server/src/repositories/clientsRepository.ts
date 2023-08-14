@@ -5,5 +5,6 @@ export interface ClientsRepository {
   findByName(name: string): Promise<Client | null>
   findMany(): Promise<Client[]>
   create(data: Prisma.ClientCreateInput): Promise<Client>
-  saveBalance(client: Client): Promise<Client | null>
+  delete(data: Client): Promise<void>
+  save(client: Client): Promise<Client | null>
 }

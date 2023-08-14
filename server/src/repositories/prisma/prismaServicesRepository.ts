@@ -32,6 +32,10 @@ export class PrismaServicesRepository implements ServicesRepository {
     return findManyByReportId
   }
 
+  async delete(data: Service): Promise<void> {
+    await prisma.service.delete({ where: { id: data.id } })
+  }
+
   async create(data: Prisma.ServiceUncheckedCreateInput): Promise<Service> {
     const service = await prisma.service.create({ data })
 

@@ -1,8 +1,6 @@
 import { UsersRepository } from '@/repositories/usersRepository'
 import { User } from '@prisma/client'
 
-interface ListUsersUseCaseRequest {}
-
 interface ListUsersUseCaseResponse {
   users: User[]
 }

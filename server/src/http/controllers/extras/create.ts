@@ -13,7 +13,7 @@ export class CreateExtraController {
     })
 
     const { description, value, client_id } = createExtraBodySchema.parse(
-      request.body
+      request.body,
     )
 
     const createExtraUseCase = makeCreateExtraUseCase()

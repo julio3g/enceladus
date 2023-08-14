@@ -19,7 +19,9 @@ export class ListReceiptsByClientUseCase {
   }: ListReceiptsByClientUseCaseRequest): Promise<ListReceiptsByClientUseCaseResponse> {
     const receipts = await this.receiptsRepository.findManyByClientId(clientId)
 
-    const listReceipts = receipts.map((receipt) => receipt.value)
+    const listReceipts = receipts.map((receipt) =>
+      parseFloat(receipt.value.toString()),
+    )
 
     const generalBalanceOfReceipts = sumListOfNumbers(listReceipts)
 

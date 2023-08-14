@@ -25,6 +25,10 @@ export class PrismaExtrasRepository implements ExtrasRepository {
     return listExtras
   }
 
+  async delete(data: Extra): Promise<void> {
+    await prisma.extra.delete({ where: { id: data.id } })
+  }
+
   async create(data: Prisma.ExtraUncheckedCreateInput): Promise<Extra> {
     const extra = await prisma.extra.create({ data })
 

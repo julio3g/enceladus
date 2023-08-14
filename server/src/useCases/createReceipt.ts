@@ -4,6 +4,7 @@ import { Receipt } from '@prisma/client'
 interface CreateReceiptUseCaseRequest {
   description: string
   value: number
+  client_id: string
 }
 
 interface CreateReceiptUseCaseResponse {
@@ -16,10 +17,12 @@ export class CreateReceiptUseCase {
   async execute({
     description,
     value,
+    client_id,
   }: CreateReceiptUseCaseRequest): Promise<CreateReceiptUseCaseResponse> {
     const receipt = await this.receiptsRepository.create({
       description,
       value,
+      client_id,
     })
     return { receipt }
   }
