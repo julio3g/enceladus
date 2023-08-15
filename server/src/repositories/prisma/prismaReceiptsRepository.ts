@@ -27,6 +27,16 @@ export class PrismaReceiptsRepository implements ReceiptsRepository {
 
   async delete(data: Receipt): Promise<void> {
     await prisma.receipt.delete({ where: { id: data.id } })
+    if (data.client_id) {
+      await prisma.client.update({
+        where: { id: data.client_id },
+        data: {
+          balance: {
+            decrement: data.value,
+          },
+        },
+      })
+    }
   }
 
   async create(data: Prisma.ReceiptCreateInput): Promise<Receipt> {

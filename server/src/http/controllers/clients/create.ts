@@ -8,12 +8,21 @@ export class CreateClientController {
       name: z.string(),
       contact: z.string(),
       phone: z.string(),
+      description: z.string(),
+      registration: z.number(),
     })
 
-    const { name, contact, phone } = createClientBodySchema.parse(request.body)
+    const { name, contact, phone, description, registration } =
+      createClientBodySchema.parse(request.body)
 
     const createClientUseCase = makeCreateClientUseCase()
-    await createClientUseCase.execute({ name, contact, phone })
+    await createClientUseCase.execute({
+      name,
+      contact,
+      phone,
+      description,
+      registration,
+    })
 
     return replay.status(201).send()
   }

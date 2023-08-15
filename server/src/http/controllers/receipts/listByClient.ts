@@ -1,4 +1,4 @@
-import { makeListExtrasByClientUseCase } from '@/useCases/factories/makeListExtrasByClientUseCase'
+import { makeListReceiptsByClientUseCase } from '@/useCases/factories/makeListReceiptsByClientUseCase'
 import { FastifyReply, FastifyRequest } from 'fastify'
 import { z } from 'zod'
 
@@ -10,8 +10,8 @@ export class ListReceiptsByClientController {
 
     const { clientId } = paramsSchema.parse(request.params)
 
-    const createExtraUseCase = makeListExtrasByClientUseCase()
-    const all = await createExtraUseCase.execute({ clientId })
+    const createReceiptUseCase = makeListReceiptsByClientUseCase()
+    const all = await createReceiptUseCase.execute({ clientId })
 
     return replay.status(200).send(all)
   }
