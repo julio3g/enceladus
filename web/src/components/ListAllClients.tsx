@@ -23,6 +23,8 @@ interface ListClientsProps {
     contact: string
     phone: string
     balance: number
+    registration: number
+    description: string
   }[]
 }
 
@@ -30,7 +32,7 @@ export function ListAllClients() {
   const [listClients, setListClients] = useState<ListClientsProps>()
   useEffect(() => {
     api.get('/clients').then(({ data }) => setListClients(data))
-  }, [listClients, setListClients])
+  }, [])
 
   async function deleteClient(clientId: string) {
     api.delete(`/clients/${clientId}`)

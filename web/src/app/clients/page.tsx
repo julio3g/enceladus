@@ -1,10 +1,7 @@
 'use client'
 
-// import { Button as Button2 } from '@/components/Button'
 import { ListAllClients } from '@/components/ListAllClients'
 import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-
 import {
   Dialog,
   DialogContent,
@@ -20,6 +17,7 @@ import {
   FormLabel,
   FormMessage,
 } from '@/components/ui/form'
+import { Input } from '@/components/ui/input'
 import { api } from '@/services/api'
 import { zodResolver } from '@hookform/resolvers/zod'
 import * as DialogPrimitive from '@radix-ui/react-dialog'
@@ -69,6 +67,7 @@ export default function Clients() {
       description,
       registration,
     })
+    form.reset()
   }
 
   return (
