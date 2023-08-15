@@ -9,17 +9,17 @@ export async function clientsRoutes(app: FastifyInstance) {
   app.post(
     '/clients',
     // { onRequest: [verifyUserRole('ADMIN')] },
-    new CreateClientController().handle
+    new CreateClientController().handle,
   )
   app.get(
     '/clients',
     // { onRequest: [verifyJWT] },
-    new ListClientsController().handle
+    new ListClientsController().handle,
   )
   app.get('/clients/:clientId', new GetClientController().handle)
   app.patch(
     '/clients/:clientId/balance',
-    new SetBalanceClientController().handle
+    new SetBalanceClientController().handle,
   )
   app.delete('/clients/:clientId', new DeleteClientController().handle)
 }

@@ -13,7 +13,7 @@ export class CreateReceiptController {
     })
 
     const { description, value, client_id } = createReceiptBodySchema.parse(
-      request.body
+      request.body,
     )
 
     const createReceiptUseCase = makeCreateReceiptUseCase()
