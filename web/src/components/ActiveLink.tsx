@@ -1,46 +1,23 @@
 'use client'
 
-import Link, { LinkProps } from 'next/link'
+import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 import { ReactElement, cloneElement } from 'react'
 
-interface ActiveLinkProps extends LinkProps {
+interface ActiveLinkProps {
+  href: string
   children: ReactElement
-  activeClassName: string
-  className?: string
 }
 
-export function ActiveLink({
-  children,
-  activeClassName,
-  className,
-  ...rest
-}: ActiveLinkProps) {
+export function ActiveLink({ href, children }: ActiveLinkProps) {
   const pathname = usePathname()
-  const classNameActive = pathname === rest.href ? activeClassName : ''
-  return (
-    <Link {...rest} className={className}>
-      {cloneElement(children, { className: classNameActive })}
-    </Link>
-  )
+
+  let className = children.props.className || ''
+  const defaultClass =
+    'p-3 rounded-xl hover:bg-neutral-200/50 text-neutral-600 duration-150'
+  if (pathname === href)
+    className = `${className} bg-neutral-200/50 ${defaultClass}` // Cor para a página atual
+  else className = `${className}  ${defaultClass}` // Cor para outras páginas
+
+  return <Link href={href}>{cloneElement(children, { className })}</Link>
 }
-
-// import { ReactNode } from 'react'
-
-// interface ActiveLinkProps extends LinkProps {
-//   children: ReactNode
-// }
-
-// export function ActiveLink({ children, href, ...rest }: ActiveLinkProps) {
-//   const pathname = usePathname()
-//   const isCurrentPath =
-//     pathname === href ||
-//     pathname === rest.as ||
-//     pathname?.startsWith(String(rest.as))
-
-//   return (
-//     <Link {...rest} href={href}>
-//       {children}
-//     </Link>
-//   )
-// }
